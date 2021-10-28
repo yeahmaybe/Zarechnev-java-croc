@@ -1,9 +1,8 @@
-package ru.croc.task3;
+package week1.task3;
 
 import java.util.List;
 import java.util.Arrays;
 import java.util.Scanner;
-
 
 public class Main {
 

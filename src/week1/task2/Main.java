@@ -1,4 +1,4 @@
-package ru.croc.task2;
+package week1.task2;
 
 import java.util.Scanner;
 

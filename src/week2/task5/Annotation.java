@@ -1,8 +1,8 @@
-package ru.croc.task4;
+package week2.task5;
 
 public class Annotation {
 
-    private final Figure figure;
+    private final Movable figure;
     private final String text;
 
     Annotation(Figure figure, String text) {
@@ -13,6 +13,14 @@ public class Annotation {
     @Override
     public String toString() {
         return figure + ": " + text;
+    }
+
+    public String getLabel() {
+        return text;
+    }
+
+    public Movable getFigure() {
+        return figure;
     }
 
 }
