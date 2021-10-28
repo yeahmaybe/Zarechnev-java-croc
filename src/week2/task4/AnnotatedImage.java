@@ -1,4 +1,4 @@
-package ru.croc.task4;
+package week2.task4;
 
 class AnnotatedImage {
 

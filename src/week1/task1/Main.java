@@ -1,4 +1,4 @@
-package ru.croc.task1;
+package week1.task1;
 
 import java.util.Scanner;
 
@@ -63,6 +63,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-            getSquare();
+        getSquare();
     }
 }

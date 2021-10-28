@@ -1,6 +1,4 @@
-package ru.croc.task5;
-
-import ru.croc.task1.Main;
+package week2.task5;
 
 public class Rectangle extends Figure {
 
