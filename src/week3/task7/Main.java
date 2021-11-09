@@ -5,50 +5,62 @@ import java.util.Scanner;
 
 public class Main {
 
-    static ChessPosition parse(String position) throws IllegalPositionException {
-        if(position.length() != 2)
-            throw new IllegalPositionException();
-
-        return new ChessPosition(
-            ChessPosition.parse(position.charAt(0), "column"),
-            ChessPosition.parse(position.charAt(1), "row")
-        );
+    public static ChessPosition parse(String position) throws IllegalPositionException {
+        ChessPosition pos;
+        try {
+            pos = new ChessPosition(
+                    ChessPosition.parse(position.charAt(0), "column"),
+                    ChessPosition.parse(position.charAt(1), "row")
+            );
+        } catch (Exception e) {
+            pos = null;
+            e.printStackTrace();
+        }
+        return pos;
     }
 
     static boolean moveIsPossible(ChessPosition A, ChessPosition B) {
         // произведение координат хода равно 2 <=>
         // <=> ход - одна из комбинаций {+2, +1}, {+2, -1}, ...
-        if(Math.abs((A.x.getNum() - B.x.getNum())*(A.y.getNum() - B.y.getNum())) == 2)
+        if(Math.abs((A.x - B.x)*(A.y - B.y)) == 2)
             return true;
         return false;
     }
 
-    static boolean canHorseWalkThatWay() throws IllegalPositionException {
-        Scanner scanner = new Scanner(System.in);
+    static boolean canHorseWalkThatWay() {
+        try(Scanner scanner = new Scanner(System.in)) {
 
-        String[] way = scanner.nextLine().split(" ");
-        ChessPosition prev = parse(way[0]);
-        way[0] = null;
+            String[] originalWay = scanner.nextLine().split(" ");
 
-        for (String nextPos: way) {
-            if(nextPos == null)
-                continue;
+            ChessPosition prev;
+            prev = parse(originalWay[0]);
 
-            ChessPosition next = parse(nextPos);
-            try {
-                if(!moveIsPossible(prev, next))
+            String[] way = new String[originalWay.length - 1];
+            System.arraycopy(originalWay, 1, way, 0, originalWay.length - 1);
+
+            for (String nextPos : way) {
+                ChessPosition next;
+
+                next = parse(nextPos);
+
+                if (!moveIsPossible(prev, next))
                     throw new IllegalMoveException(prev, next);
+                prev = next;
             }
-            catch(IllegalMoveException ex) {
-                System.out.println(ex.getMessage());
-                return false;
-            }
-            prev = next;
+
+            System.out.println("OK");
+            return true;
+        }
+        catch(IllegalPositionException ex) {
+            ex.getMessage();
+        }
+        catch(IllegalMoveException ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
+            return false;
         }
 
-        System.out.println("OK");
-        scanner.close();
-        return true;
     }
 
     public static void main(String[] args) throws IllegalPositionException {
