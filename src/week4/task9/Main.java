@@ -1,16 +1,16 @@
 package week4.task9;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Main {
 
-    static void mergeLogs(String from, String to) throws IOException {
+    static void mergeLogs(String from) throws IOException {
+        String to = "logs.txt";
 
         Object[] tree = Files.walk(Paths.get(from))
-                .filter(t -> t.toString().matches(".+\\.log|.+\\.trace")).toArray();
+                .filter(t -> t.toString().matches(".+\\.txt|.+\\.log|.+\\.trace")).toArray();
 
         for(Object logPath: tree){
             String log = String.valueOf(logPath);
@@ -55,9 +55,17 @@ public class Main {
                 if(oldLog.delete() && tmp.renameTo(new File(to))) {}
             }
         }
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(to))) {
+            String line = reader.readLine();
+            while(line != null) {
+                System.out.println(line);
+                line = reader.readLine();
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
-        mergeLogs("logs", "logs.txt");
+        mergeLogs(args[0]);
     }
 }
