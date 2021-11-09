@@ -12,8 +12,9 @@ public class Main {
         try (BufferedReader in  = new BufferedReader(new FileReader(file))) {
             while(in.ready()) {
                 String line = in.readLine();
-                wordsNum += Arrays.stream(line.split("[^A-Za-zА-Яа-я]+"))
+                wordsNum += Arrays.stream(line.split("[^A-Za-zА-Яа-я0-9-]+"))
                         .filter(elem -> !Objects.equals(elem, ""))
+                        .filter(elem -> !Objects.equals(elem, "-"))
                         .count();
             }
 
