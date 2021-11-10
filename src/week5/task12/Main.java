@@ -83,7 +83,7 @@ public class Main {
                             synchronized (lock) {
                                 notFound = false;
                             }
-                            System.out.println(candidatePass + "<");
+                            System.out.println(candidatePass);
                             Thread.currentThread().interrupt();
                         }
                         synchronized (lock) {
