@@ -1,10 +1,16 @@
 package week5.task11;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Lot lot = new Lot();
+        Lot lot = new Lot(
+            50, //start price
+            LocalDateTime.of(
+                    16, 11, 2021, 12, 59 //finish date and time
+            )
+        );
 
         Runnable runnable = new Runnable() {
             @Override
