@@ -32,7 +32,7 @@ public class Main {
     public static void main(String[] args) {
 
         int threadNum = Integer.parseInt(args[0]);
-        String hash = args[1];
+        String hash = args[1];;
         //hash = hashPassword("acfffff");
 
         Thread[] thread = new Thread[threadNum];
@@ -77,13 +77,13 @@ public class Main {
                             candidatePass += (char) (getPassword()[i] + (int) ('a'));
                         }
 
-                            //System.out.println(candidatePass + " " + Thread.currentThread().getName());
+                        //System.out.println(candidatePass + " " + Thread.currentThread().getName());
 
                         if (hashPassword(candidatePass).equals(finalHash)) {
                             synchronized (lock) {
                                 notFound = false;
                             }
-                            System.out.println(candidatePass + "<");
+                            System.out.println(candidatePass);
                             Thread.currentThread().interrupt();
                         }
                         synchronized (lock) {
