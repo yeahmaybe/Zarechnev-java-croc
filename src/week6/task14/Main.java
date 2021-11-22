@@ -8,8 +8,9 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-
     public static void main(String[] args) throws IOException {
+        // Количество просмотров подсчитывается только по избранным в пункте 1 историям
+
         String filmsList = "films.txt";
         String historyList = "history.txt";
         int filmsNum = 0;
@@ -42,7 +43,7 @@ public class Main {
                 Set<String> currentHistorySet = new HashSet<String>(alreadyWatched);
 
                 //должна быть хотя бы половина
-                if (filmsNum / 2 > currentHistorySet.size()) {
+                if (filmsNum / 2 + filmsNum%2 > currentHistorySet.size()) {
                     line = read.readLine();
                     continue;
                 }
@@ -67,7 +68,7 @@ public class Main {
         }
 
         int topViews = 0;
-        List<Integer> recomendations = new ArrayList<>();
+        int recomendation = 0;
 
         //ищем максимальное количество просмотров и фильмы с этим количеством
         Iterator<Map.Entry<Integer, Integer>> film = views.entrySet().iterator();
@@ -78,28 +79,21 @@ public class Main {
 
             if (nextFilmViews > topViews) {
                 topViews = nextFilmViews;
-                recomendations.clear();
-                recomendations.add(nextFilmNum);
-            } else if (nextFilmViews == topViews) {
-                recomendations.add(nextFilmNum);
+                recomendation = nextFilmNum;
             }
         }
 
         //расшифровываем номера фильмов из файла
-        List<String> offer = new ArrayList<>();
+        String offer = new String();
         try (BufferedReader read = new BufferedReader(new FileReader(filmsList))) {
             String line = read.readLine();
             while (line != null) {
-                if (recomendations.contains(Integer.parseInt(line.split(",")[0]))) {
-                    offer.add(line.split(",")[1]);
+                if (recomendation == Integer.parseInt(line.split(",")[0])) {
+                    offer = line.split(",")[1];
                 }
                 line = read.readLine();
             }
         }
-
-        Iterator<String> offeredFilm = offer.iterator();
-        while (offeredFilm.hasNext()) {
-            System.out.println(offeredFilm.next());
-        }
+        System.out.println(offer);
     }
 }
