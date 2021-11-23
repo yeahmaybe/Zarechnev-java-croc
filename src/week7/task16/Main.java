@@ -1,11 +1,12 @@
-package week7.task16;
+ package week7.task16;
 
+import java.lang.constant.DynamicCallSiteDesc;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        //String[] _args = {"18", "25", "35", "45", "60", "80", "100"};
-        String[] _args = args;
+        String[] _args = {"18", "25", "35", "45", "60", "80", "100"};
+        //String[] _args = args;
         ArrayList<Integer> ages = new ArrayList<>();
 
         //представляем возрасты в интеджеры
@@ -34,35 +35,50 @@ public class Main {
         Iterator<Map.Entry<Integer, HashSet<String>>> aging = persons.entrySet().iterator();
         Integer counter = ages.size()-1; //индекс нижней границы текущей группы
 
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for(int i=0; i< ages.size(); i++) {
+           list.add(new ArrayList<Integer>());
+        }
+
         while(aging.hasNext()) {
             Map.Entry<Integer, HashSet<String>> next = aging.next();
-            int age = 123-next.getKey();
-            HashSet<String> names = next.getValue();
-
-            while(counter > 0 && ages.get(counter) >= age) {
-                counter--;
-            }
-
-            if(counter == ages.size()-1) {
-                for(String name: names) {
-                    System.out.println(
-                            Integer.toString(ages.get(counter)+1) +
-                            "+: " +
-                            name + "(" + age + ")"
-                    );
+            boolean changed = false;
+            for(int i=0; i<ages.size()-1; i++) {
+                if(123-next.getKey() > ages.get(i) && 123-next.getKey() <= ages.get(i+1)) {
+                    list.get(ages.size()-1-i).add(123-next.getKey());
+                    changed = true;
                 }
             }
-            else {
-                for (String name : names) {
-                    System.out.println(
-                            Integer.toString(ages.get(counter)+1) +
-                            "-" +
-                            Integer.toString(ages.get(counter+1)) +
-                            ": " +
-                            name + "(" + age + ")"
-                    );
+            if(!changed) list.get(0).add(123-next.getKey());
+        }
+
+        for(int i=0; i < list.size(); i++) {
+            if(list.get(i).size() > 0) {
+                if (i > 0)
+                    System.out.print('\n' + "" + (ages.get(list.size() - 1 - i) + 1) + "-" + ages.get(list.size() - i) + ": ");
+                else if (i == 0) {
+                    System.out.print("\n"+(ages.get(list.size() - i -1) + 1) + "+: ");
                 }
+            }
+
+
+            for(Integer age: list.get(i)) {
+                for(String human: persons.get(123-age))
+                System.out.print(human + " (" + age + "), ");
             }
         }
     }
 }
+
+/*
+a,9
+b,10
+g,18
+h,23
+fs,90
+fds,99
+fsd,100
+sdf,101
+fsdfg,102
+END
+ */
