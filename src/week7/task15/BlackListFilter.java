@@ -12,22 +12,9 @@ public interface BlackListFilter {
         List<String> tmpComments = new ArrayList<>();
 
         for(String comment: comments) {
-            String[] commentWords = comment.split("[^A-Za-zА-Яа-я0-9-]+");
-            List<String> commentList = new ArrayList<>();
-            Collections.addAll(commentList, commentWords);
-
-            boolean contains = false;
-
-            for (String word : blackList) {
-                if(commentList.contains(word)) {
-                    contains = true;
-                    break;
-                }
-            }
-            if(!contains) {
+            if(condition.test(comment)) {
                 tmpComments.add(comment);
             }
         }
-        System.out.println(comments);
     }
 }
