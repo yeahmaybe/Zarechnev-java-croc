@@ -16,7 +16,6 @@ public interface BlackListFilter {
                 tmpComments.add(comment);
             }
         }
-
         return tmpComments;
     }
 }
