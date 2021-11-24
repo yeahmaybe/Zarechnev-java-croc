@@ -7,7 +7,10 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        String[] words = {"Африканская", "страна", "Нигер", "экспортирует", "черный", "кофе"};
+        String[] words = {
+                "Африканская страна Нигер тоже экспортирует черный кофе",
+                "Отличное видео! Познавательное.",
+                "Автору тележку лайков"};
         String[] blackList = {"Нигер", "черный"};
 
         List<String> list = new ArrayList<String>(List.of(words));

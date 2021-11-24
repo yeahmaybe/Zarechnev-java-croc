@@ -1,8 +1,9 @@
 package week6.task13;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class BlackListFilterImpl implements BlackListFilter {
     @Override
@@ -19,9 +20,19 @@ public class BlackListFilterImpl implements BlackListFilter {
      *                  be present in a comment
      */
     void filterComments(List<String> comments, Set<String> blackList) {
-        comments = comments.stream().filter(word -> !blackList.contains(word)).collect(Collectors.toList());
+        List<String> tmpComments = new ArrayList<>(comments);
+        for(String comment: tmpComments) {
+            String[] commentWords = comment.split("[^A-Za-zА-Яа-я0-9-]+");
+            List<String> commentList = new ArrayList<>();
+            Collections.addAll(commentList, commentWords);
 
-        System.out.println(comments.toString());
+            for (String word : blackList) {
+                if(commentList.contains(word)) {
+                    comments.remove(comment);
+                    break;
+                }
+            }
+        }
+        System.out.println(comments);
     }
-
 }
