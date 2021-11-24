@@ -7,7 +7,7 @@ public interface BlackListFilter {
 
     default <T1 extends Iterable<String>,
                 T2 extends Iterable<String>>
-                    void filterComments(T1 comments, T2 blackList, Predicate<String> condition) {
+                    List<String> filterComments(T1 comments, T2 blackList, Predicate<String> condition) {
 
         List<String> tmpComments = new ArrayList<>();
 
