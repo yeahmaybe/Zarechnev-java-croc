@@ -16,6 +16,5 @@ public interface BlackListFilter {
                 tmpComments.add(comment);
             }
         }
-        System.out.println(comments);
     }
 }
