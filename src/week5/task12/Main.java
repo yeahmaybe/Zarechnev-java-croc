@@ -72,26 +72,26 @@ public class Main {
 
                 while (notFound()) {
 
-                        String candidatePass = "";
-                        for (int i = 0; i < 7; ++i) {
-                            candidatePass += (char) (getPassword()[i] + (int) ('a'));
-                        }
+                    String candidatePass = "";
+                    for (int i = 0; i < 7; ++i) {
+                        candidatePass += (char) (getPassword()[i] + (int) ('a'));
+                    }
 
-                        //System.out.println(candidatePass + " " + Thread.currentThread().getName());
+                    //System.out.println(candidatePass + " " + Thread.currentThread().getName());
 
-                        if (hashPassword(candidatePass).equals(finalHash)) {
-                            synchronized (lock) {
-                                notFound = false;
-                            }
-                            System.out.println(candidatePass);
-                            Thread.currentThread().interrupt();
-                        }
+                    if (hashPassword(candidatePass).equals(finalHash)) {
                         synchronized (lock) {
-                            //итерация пароля
-                            nextPassword(6);
+                            notFound = false;
                         }
+                        System.out.println(candidatePass);
+                        Thread.currentThread().interrupt();
+                    }
+                    synchronized (lock) {
+                        //итерация пароля
+                        nextPassword(6);
                     }
                 }
+            }
         };
 
         for(int i=0; i<threadNum; ++i) {

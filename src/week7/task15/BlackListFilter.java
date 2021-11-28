@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 public interface BlackListFilter {
 
     default <T1 extends Iterable<String>,
-                T2 extends Iterable<String>>
-                    List<String> filterComments(T1 comments, T2 blackList, Predicate<String> condition) {
+            T2 extends Iterable<String>>
+                List<String> filterComments(T1 comments, T2 blackList, Predicate<String> condition) {
 
         List<String> tmpComments = new ArrayList<>();
 
@@ -16,5 +16,6 @@ public interface BlackListFilter {
                 tmpComments.add(comment);
             }
         }
+        return tmpComments;
     }
 }
