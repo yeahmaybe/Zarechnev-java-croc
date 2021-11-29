@@ -5,13 +5,11 @@ import java.util.function.Predicate;
 
 public interface BlackListFilter {
 
-    default <T1 extends Iterable<String>,
-            T2 extends Iterable<String>>
-                List<String> filterComments(T1 comments, T2 blackList, Predicate<String> condition) {
+    default <E> List<E> filterComments(Iterable<E> comments, Predicate<E> condition) {
 
-        List<String> tmpComments = new ArrayList<>();
+        List<E> tmpComments = new ArrayList<>();
 
-        for(String comment: comments) {
+        for(E comment: comments) {
             if(condition.test(comment)) {
                 tmpComments.add(comment);
             }
