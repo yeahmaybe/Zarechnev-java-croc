@@ -1,6 +1,5 @@
  package week7.task16;
 
-import java.lang.constant.DynamicCallSiteDesc;
 import java.util.*;
 
 public class Main {
@@ -17,7 +16,7 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         String person = scan.nextLine();
-        Map<Integer, HashSet<String>> persons = new TreeMap<>();
+        Map<Integer, TreeSet<String>> persons = new TreeMap<>();
 
         while(!person.equals("END")) {
 
@@ -25,14 +24,14 @@ public class Main {
             int age = Integer.parseInt(person.split(",")[1]);
 
             if(!persons.containsKey(123-age)) {
-                persons.put(123-age, new HashSet<>());
+                persons.put(123-age, new TreeSet<>());
             }
             persons.get(123-age).add(name);
 
             person = scan.nextLine();
         }
 
-        Iterator<Map.Entry<Integer, HashSet<String>>> aging = persons.entrySet().iterator();
+        Iterator<Map.Entry<Integer, TreeSet<String>>> aging = persons.entrySet().iterator();
         Integer counter = ages.size()-1; //индекс нижней границы текущей группы
 
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
@@ -41,7 +40,7 @@ public class Main {
         }
 
         while(aging.hasNext()) {
-            Map.Entry<Integer, HashSet<String>> next = aging.next();
+            Map.Entry<Integer, TreeSet<String>> next = aging.next();
             boolean changed = false;
             for(int i=0; i<ages.size()-1; i++) {
                 if(123-next.getKey() > ages.get(i) && 123-next.getKey() <= ages.get(i+1)) {
